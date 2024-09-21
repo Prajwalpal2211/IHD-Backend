@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const Feedback = require('./Models/Feedback');  // Assuming you created the feedback model
-const xlsx = require('xlsx');
+
 const fs = require('fs');
 const dotenv = require('dotenv').config;
 
@@ -80,43 +80,7 @@ app.put('/IhdUploadImg/:id', async (req, res) => {
     }
   });
   
-  // Route to export data to Excel
-  app.get('/api/export', async (req, res) => {
-    try {
-      const feedbacks = await Feedback.find({});
-  
-      // Create a new Excel workbook and worksheet
-      const workbook = xlsx.utils.book_new();
-      const worksheet = xlsx.utils.json_to_sheet(feedbacks.map(fb => ({
-        FullName: fb.fullName,
-        Email: fb.email,
-        Mobile: fb.mobile,
-        Feedback: fb.feedback,
-        DateSubmitted: fb.createdAt,
-      })));
-  
-      // Append worksheet to workbook
-      xlsx.utils.book_append_sheet(workbook, worksheet, 'Feedbacks');
-  
-      // Write the workbook to a file
-      const excelFile = 'feedbacks.xlsx';
-      xlsx.writeFile(workbook, excelFile);
-  
-      // Send the Excel file to the client
-      res.download(excelFile, 'feedbacks.xlsx', (err) => {
-        if (err) {
-          console.error('Error downloading the file:', err);
-          res.status(500).send('Error exporting data');
-        }
-  
-        // Delete the file after sending to avoid clutter
-        fs.unlinkSync(excelFile);
-      });
-  
-    } catch (error) {
-      res.status(500).send({ message: 'Error exporting feedback data', error });
-    }
-  });
+ 
 
 
 
