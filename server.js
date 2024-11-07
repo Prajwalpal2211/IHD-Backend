@@ -97,8 +97,7 @@ app.put('/IhdUploadImg/:id', async (req, res) => {
 
 app.post('/send-email', upload.single('media'), (req, res) => {
   const { user_name, user_email, number, user_location, looks } = req.body;
-  console.log(user_name);
-  console.log(user_email);
+ 
 
   const mailOptions = {
     from: `"${user_name}" <${user_email}>`, // Sender's email
