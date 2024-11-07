@@ -102,7 +102,7 @@ app.post('/send-email', upload.single('media'), (req, res) => {
 
   const mailOptions = {
     from: `"${user_name}" <${user_email}>`, // Sender's email
-    to: 'official.prajwalpal@gmail.com',                     // Recipient email
+    to: 'insightdecor11@gmail.com',                     // Recipient email
     subject: 'New Consultation Request',
     text: `Name: ${user_name}\nEmail: ${user_email}\nPhone: ${number}\nLocation: ${user_location}\nRequirements: ${looks}`,
     attachments: req.file
